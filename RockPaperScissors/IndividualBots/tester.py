@@ -2,7 +2,7 @@
 
 import random
 data = ""
-with open("/path/to/output.txt", "w") as game:
+with open("output.txt", "w") as game:
         for _ in range(10000):
             """
             If you wanna mix things up a bit
