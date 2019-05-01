@@ -1,8 +1,6 @@
 #botbattle!!!! The algorithm based bot is Bot 1 and the Markov Chain Based one is Bot 2
 import random
-
 import time
-
 bot1choice = 0
 bot2choice = 0
 bot1prevchoice = 0
@@ -11,6 +9,10 @@ results = ""
 results2 = ""
 bot1score = [0,0,0]
 bot2score = [0,0,0]
+
+buildTMatrix_init = {'rr': 1, 'rp': 1, 'rs': 1, 'pr': 1, 'pp': 1, 'ps': 1, 'sr': 1, 'sp': 1, 'ss': 1}
+buildTMatrixL_init = {'rr': 1, 'rp': 1, 'rs': 1, 'pr': 1, 'pp': 1, 'ps': 1, 'sr': 1, 'sp': 1, 'ss': 1}
+buildTMatrixT_init = {'rr': 1, 'rp': 1, 'rs': 1, 'pr': 1, 'pp': 1, 'ps': 1, 'sr': 1, 'sp': 1, 'ss': 1}
 
 buildTMatrix = {'rr': 1, 'rp': 1, 'rs': 1, 'pr': 1, 'pp': 1, 'ps': 1, 'sr': 1, 'sp': 1, 'ss': 1}
 buildTMatrixL = {'rr': 1, 'rp': 1, 'rs': 1, 'pr': 1, 'pp': 1, 'ps': 1, 'sr': 1, 'sp': 1, 'ss': 1}
@@ -42,12 +44,7 @@ def init():
     else:
       results2 = "Tied!"
 
- start = time.start()
-	
     fight(100000)
-
- stop = time.stop()
- print(stop - start)
 
 def fight(rounds):
     global bot1prevchoice
@@ -206,6 +203,12 @@ def bot2(previ,choit,res):
 
     choice = choit
     transMatrix = buildTransitionProbabilities(prevChoice,choice,result)
+
+    #########################
+    # print(res)
+    # print(transMatrix)
+    #########################
+
     machineChoice = random.randint(1, 100)
     probabilitiesRPS[0] = transMatrix[prevChoice][0]
     probabilitiesRPS[1] = transMatrix[prevChoice][1]
@@ -262,6 +265,7 @@ def buildTransitionMatrix(winlosstwo):
           else:
             c = a/scissors
           row[col_index] = float(c)
+          # print(tMatrix)
       return (tMatrix)
     elif winlosstwo == "Tied!":
       rock = buildTMatrixT['rr'] + buildTMatrixT['rs'] +buildTMatrixT['rp']
@@ -278,6 +282,7 @@ def buildTransitionMatrix(winlosstwo):
           else:
             c = a/scissors
           row[col_index] = float(c)
+          # print(tMatrixT)
       return (tMatrixT)
 
     else:
@@ -295,6 +300,16 @@ def buildTransitionMatrix(winlosstwo):
           else:
             c = a/scissors
           row[col_index] = float(c)
+          # print(tMatrixL)
       return (tMatrixL)
 
 init()
+
+print(buildTMatrix)
+print(buildTMatrixL)
+print(buildTMatrixT)
+
+assert(buildTMatrix != buildTMatrix_init)
+assert(buildTMatrixL != buildTMatrixL_init)
+assert(buildTMatrixT != buildTMatrixT_init)
+
