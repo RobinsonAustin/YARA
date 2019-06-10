@@ -31,8 +31,10 @@ global probabilitiesRPS
 probabilitiesRPS = [1/3,1/3,1/3]
 
 def init(): 
-
+start = time.start()
     fight(100000)
+stop = time.end()
+print(stop - start)
 
 def fight(rounds):
     global bot1prevchoice
